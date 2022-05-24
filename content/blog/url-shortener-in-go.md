@@ -1,6 +1,6 @@
 +++
 title = "url shortener in go"
-author = "dominic hamon"
+author = "dominic"
 date = "2014-01-19"
 categories = [
   "go"

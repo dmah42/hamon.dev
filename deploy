@@ -1,6 +1,7 @@
 #~/bin/bash
 
 set +x
+set -e
 
 hugo
 rsync -P -a ./public/* dh_du94yj@hamon.dev:~/hamon.dev/

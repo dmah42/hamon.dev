@@ -12,12 +12,7 @@ pygmentscodefencesguesssyntax = true
 
 [params]
   author = "dominic hamon"
-  info = """
-🏢 Engineering manager<br/>
-🔙 Ex-physicist<br/>
-🐕 Rescuer<br/>
-💀Tattooed troublemaker<br/>
-🧠🌈"""
+  info = "🏢 engineering manager .. 🔙 ex-physicist .. 🐕 rescuer .. 💀 tattooed troublemaker .. 🧠🌈"
   description = "dominic hamon's site"
   keywords = "blog,developer,personal"
   avatarurl = "images/avatar.jpg"

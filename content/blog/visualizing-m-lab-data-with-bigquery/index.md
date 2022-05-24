@@ -1,51 +1,53 @@
-[DominicHamon.com](/blog/ "Dominic Hamon")
-==========================================
++++
+title = "visualizing m-lab data with bigquery"
+author = "dominic"
+date = "2012-11-19"
+categories = [
+  "javascript"
+]
+tags = [
+  "javascript",
+  "dataviz",
+  "m-lab",
+  "web100",
+  "rfc4898"
+]
++++
 
-Life is like a grapefruit
--------------------------
+# Visualizing M-Lab data with BigQuery
 
-Visualizing M-Lab data with BigQuery
-====================================
-
-I recently moved to a new group at Google:
-[M-Lab](http://measurementlab.net/). The Measurement Lab is a
-cross-company supported platform for researchers to run network
-performance experiments against. Every experiment running on M-Lab is
+I recently moved to a new group at Google: [M-Lab](http://measurementlab.net/).
+The Measurement Lab is a cross-company supported platform for researchers to run
+network performance experiments against. Every experiment running on M-Lab is
 open source, and all of the data is also open; stored in [Google Cloud
 Storage](https://developers.google.com/storage/) and
 [BigQuery](https://developers.google.com/bigquery/).
 
 One of the great things about having all that data open and available in
-BigQuery is that anyone can come along and find ways to visualize it.
-There’s a few examples in the [Public Data
-Explorer](http://www.google.com/publicdata/explore?ds=e9krd11m38onf_ "Measurement Lab @ Google Public Data Explorer"),
-but I was feeling inspired
-<sup><a href="#fn-57-1" id="fnref-57-1">1</a></sup> and wanted to know
-what it was like for someone coming to M-Lab data fresh.
+BigQuery is that anyone can come along and find ways to visualize it.  There’s a
+few examples in the [Public Data Explorer](http://www.google.com/publicdata/explore?ds=e9krd11m38onf_ "Measurement Lab @ Google Public Data Explorer"),
+but I was feeling inspired[^1] and wanted to know what it was like for someone
+coming to M-Lab data fresh.
 
-I decided to build something using HTML5 canvas and JavaScript so those
-are the versions of the API that I’m using. However, there’s [broad
-language
-support](https://developers.google.com/discovery/libraries "Google API Client Libraries")
+I decided to build something using HTML5 canvas and JavaScript so those are the
+versions of the API that I’m using. However, there’s [broad language support](https://developers.google.com/discovery/libraries "Google API Client Libraries")
 for the APIs.
 
-#### OAuth2 authentication
+## OAuth2 authentication
 
-This step actually took the longest of the whole process. There are a
-number of options when it comes to which type of key you need, and how
-you go about getting one, and the documentation is thorough but not
-particularly clear. Essentially you need to have view rights for the
-measurement-lab BigQuery project, and a Client ID created for you by one
-of the owners. You can ignore any documentation that talks about
-billing, unless you import the data into your own BigQuery project
-before running queries against it. However, there’s no need to do that,
-as a simple email to someone at M-Lab
-<sup><a href="#fn-57-2" id="fnref-57-2">2</a></sup> you can get a key
-for your app and view access. This will allow you to run queries at no
-cost to you.
+This step actually took the longest of the whole process. There are a number of
+options when it comes to which type of key you need, and how you go about
+getting one, and the documentation is thorough but not particularly clear.
+Essentially you need to have view rights for the measurement-lab BigQuery
+project, and a Client ID created for you by one of the owners. You can ignore
+any documentation that talks about billing, unless you import the data into your
+own BigQuery project before running queries against it. However, there’s no need
+to do that, as a simple email to someone at M-Lab[^2] you can get a key for your
+app and view access. This will allow you to run queries at no cost to you.
 
 Once you have a key, it’s time to authorize:
 
+```html
     <html>
       <head>
         <script src="https://apis.google.com/js/client.js"></script>
@@ -84,30 +86,31 @@ Once you have a key, it’s time to authorize:
         </button>
       </body>
     </html>
+```
 
-With this, you should be able to hit the Authorize button, enter a
-Google account (required for tracking by BigQuery, I believe) and load
-the BigQuery API library. The Google account you use will have to have
-accepted the BigQuery terms of service, which involves logging in to the
-BigQuery site and clicking through the login.
+With this, you should be able to hit the Authorize button, enter a Google
+account (required for tracking by BigQuery, I believe) and load the BigQuery API
+library. The Google account you use will have to have accepted the BigQuery
+terms of service, which involves logging in to the BigQuery site and clicking
+through the login.
 
-Note, this is a bit of a pain for a multiple-user web application.
-However, there is the option to set up a server-to-server authorization
-flow which removes this difficulty. Similarly, I believe native
-installed applications have a different route for authorization but I
-haven’t looked into it yet.
+Note, this is a bit of a pain for a multiple-user web application.  However,
+there is the option to set up a server-to-server authorization flow which
+removes this difficulty. Similarly, I believe native installed applications
+have a different route for authorization but I haven’t looked into it yet.
 
-#### Your first query
+## Your first query
 
-For the purposes of this post, I wanted to get every distinct test that
-had been run in a month and plot a point at the latitude and longitude
-of the client’s location. By making the plotted pixel semi-transparent I
-could use additive blending to make things glow a bit, and easily see
-areas where multiple tests had run.
+For the purposes of this post, I wanted to get every distinct test that had been
+run in a month and plot a point at the latitude and longitude of the client’s
+location. By making the plotted pixel semi-transparent I could use additive
+blending to make things glow a bit, and easily see areas where multiple tests
+had run.
 
-I’ll assume you know how to add a canvas to the page and draw to pixels.
-I’ll focus instead on actually running the query.
+I’ll assume you know how to add a canvas to the page and draw to pixels. I’ll
+focus instead on actually running the query.
 
+```javascript
           function runQuery() {
             var query =
                 'SELECT project,log_time,' +
@@ -150,32 +153,31 @@ I’ll focus instead on actually running the query.
                 });
             });
           }
+```
 
 There’s a few things to note here, but the main one is that this is a
-synchronous call and will timeout and return no results if it takes
-longer than 45 seconds. It will also return a maximum of 16000 rows.
-There are ways to remove both of these restrictions which we’ll get to
-later.
+synchronous call and will timeout and return no results if it takes longer than
+45 seconds. It will also return a maximum of 16000 rows.  There are ways to
+remove both of these restrictions which we’ll get to later.
 
-Also, the key to getting values from each row is in the `item.f[3].v`
-lines. The index there comes from the order of fields requested in the
-SELECT statement.
+Also, the key to getting values from each row is in the `item.f[3].v` lines.
+The index there comes from the order of fields requested in the SELECT
+statement.
 
-Another thing to note is that longitude and latitude could be projected
-using
+Another thing to note is that longitude and latitude could be projected using
 [Mercator](http://mathworld.wolfram.com/MercatorProjection.html "Mercator Projection @ mathworld")
 or
 [Equirectangular](http://mathworld.wolfram.com/EquirectangularProjection.html "Equirectangular Projection @ mathworld")
 projections.
 
-#### Removing the restrictions
+## Removing the restrictions
 
-Both the synchronicity of the call and the timeout can be solved by
-polling for the query to complete using the `jobs.getQueryresults`
-method.
+Both the synchronicity of the call and the timeout can be solved by polling for
+the query to complete using the `jobs.getQueryresults` method.
 
 With this change, the code above looks something like:
 
+```javascript
           function runQuery() {
             startIndex = 0;
             var query =
@@ -229,170 +231,63 @@ With this change, the code above looks something like:
               $('#status').html('ERROR: ' + response.error.message);
             }
           }
+```
 
-As you can see, instead of having a long timeout, we have a short one.
-When the callback fires, if the job is not complete, we poll again with
-the same short timeout. This continues until the job succeeds (or an
-error is returned). Note, this means that even jobs that apparently
-timeout can remain running and accessible from the API. If you want to
-cancel a job you need to `delete` it using the API.
+As you can see, instead of having a long timeout, we have a short one.  When the
+callback fires, if the job is not complete, we poll again with the same short
+timeout. This continues until the job succeeds (or an error is returned). Note,
+this means that even jobs that apparently timeout can remain running and
+accessible from the API. If you want to cancel a job you need to `delete` it using the API.
 
-So what do you get when you run this for 1 million points?  
-[<img src="/blog/wp-content/uploads/2012/11/1M-3month-add-fullscreen.png" title="1M 3month add fullscreen" class="aligncenter size-full wp-image-59" width="1280" height="800" />](/blog/wp-content/uploads/2012/11/1M-3month-add-fullscreen.png)  
-The points are a little fuzzy as I was using CSS to scale up the canvas
-for a cheap blur effect.
+So what do you get when you run this for 1 million points?
 
-#### What else?
+![1M 3month add fullscreen](./1M-3month-add-fullscreen.png)
 
-This is pretty enough, but the M-Lab data includes some terrific data
-regarding the innards of TCP states on client and server machines
-throughout the tests that are run. This is thanks to the
-[Web100](http://www.web100.org/) kernel patches that run on M-Lab server
-slices. With those, it would be possible to map out areas where
-congestion signals are more common, or the distribution of receiver
-window settings. Or try to find correlations between RTT and the many
+The points are a little fuzzy as I was using CSS to scale up the canvas for a
+cheap blur effect.
+
+## What else?
+
+This is pretty enough, but the M-Lab data includes some terrific data regarding
+the innards of TCP states on client and server machines throughout the tests
+that are run. This is thanks to the [Web100](http://www.web100.org/) kernel
+patches that run on M-Lab server slices. With those, it would be possible to map
+out areas where congestion signals are more common, or the distribution of
+receiver window settings. Or try to find correlations between RTT and the many
 available fields in the schema.
 
-As another simple example, by plotting short RTT in blue, medium RTT in
-green, and long RTT in red (and removing the blur), you get something
-like:  
-[<img src="/blog/wp-content/uploads/2012/11/1M-RTT-fullcolor-fullscreen.png" title="1M RTT fullcolor fullscreen" class="aligncenter size-full wp-image-62" sizes="(max-width: 1280px) 100vw, 1280px" srcset="/blog/wp-content/uploads/2012/11/1M-RTT-fullcolor-fullscreen.png 1280w, /blog/wp-content/uploads/2012/11/1M-RTT-fullcolor-fullscreen-300x187.png 300w, /blog/wp-content/uploads/2012/11/1M-RTT-fullcolor-fullscreen-1024x640.png 1024w, /blog/wp-content/uploads/2012/11/1M-RTT-fullcolor-fullscreen-250x156.png 250w" width="1280" height="800" />](/blog/wp-content/uploads/2012/11/1M-RTT-fullcolor-fullscreen.png)  
-If you look at the full-res version, you can see the clusters of red
-pixels across India and South East Asia.
+As another simple example, by plotting short RTT in blue, medium RTT in green,
+and long RTT in red (and removing the blur), you get something like:
 
-This is immediately useful data: Given the number of tests that are run
-in the area (the density of points), and the long RTT we’re seeing from
-there, it would make sense to add a few servers in those countries to
-ensure the data we have on throughput and congestion for that area is
-not being skewed by long RTT. Similarly, we can feel good about our
-coverage across Europe and North America, though the less impressive RTT
-in Canada should be investigated.
+![1M RTT fullcolor fullscreen](./1M-RTT-fullcolor-fullscreen.png)
 
-#### More?
+If you look at the full-res version, you can see the clusters of red pixels
+across India and South East Asia.
 
-Almost certainly, but I’m out of time on this little weekend project
-hacked together between jaunts around Boston. Someone smarter than me
-can probably combine the fields in the m\_lab table schema in ways I
-haven’t considered and draw out interesting information. Similarly, the
-live version <sup><a href="#fn-57-3" id="fnref-57-3">3</a></sup> could
-support zooming and panning of the map, and more flexibility in setting
-the query from the UI.
+This is immediately useful data: Given the number of tests that are run in the
+area (the density of points), and the long RTT we’re seeing from there, it would
+make sense to add a few servers in those countries to ensure the data we have on
+throughput and congestion for that area is not being skewed by long RTT.
+Similarly, we can feel good about our coverage across Europe and North America,
+though the less impressive RTT in Canada should be investigated.
+
+## More?
+
+Almost certainly, but I’m out of time on this little weekend project hacked
+together between jaunts around Boston. Someone smarter than me can probably
+combine the fields in the m\_lab table schema in ways I haven’t considered and
+draw out interesting information. Similarly, the live version[^3] could support
+zooming and panning of the map, and more flexibility in setting the query from
+the UI.
 
 Lastly, if you want to start playing around with [&gt;630TB of network
 performance data](http://measurementlab.net/usage), let me know and I’ll
 see what I can do.
 
-1.  <span id="fn-57-1">Mostly by [this
-    post](https://www.facebook.com/notes/facebook-data-science/visualizing-activity-on-facebook/10150884743158859 "Visualizing activity on Facebook")
-    from Facebook <span
-    class="footnotereverse">[↩](#fnref-57-1)</span></span>
-2.  <span id="fn-57-2">Hint: Try dominic at measurementlab dot net <span
-    class="footnotereverse">[↩](#fnref-57-2)</span></span>
-3.  <span id="fn-57-3">I did mention that there’s [a live
-    version](http://dmadev.com/geoviz.html) right? <span
-    class="footnotereverse">[↩](#fnref-57-3)</span></span>
+[^1]: Mostly by [this post](https://www.facebook.com/notes/facebook-data-science/visualizing-activity-on-facebook/10150884743158859 "Visualizing activity on Facebook")
+    from Facebook
+[^2]: Hint: Try dominic at measurementlab dot net. [_Ed: don't. the email is a
+  dead one_]
+[^3]: I did mention that there’s [a live version](http://dmadev.com/geoviz.html)
+right? [_Ed: sadly lost, like tears in rain_]
 
-Posted on
-[2012/11/19](/blog/2012/11/visualizing-m-lab-data-with-bigquery/ "07:55")<span
-class="byline"> by <span
-class="author vcard"><a href="/blog/author/dominic/" class="url fn n" title="View all posts by dominic">dominic</a></span></span>
-<span class="cat-links"> in
-[visualization](/blog/category/coding/visualization/) </span> <span
-class="sep"> | </span> <span class="tags-links"> Tagged
-[bigquery](/blog/tag/bigquery/), [canvas](/blog/tag/canvas/),
-[html5](/blog/tag/html5/), [javascript](/blog/tag/javascript/),
-[m-lab](/blog/tag/m-lab/), [visualization](/blog/tag/visualization-2/)
-</span> <span class="sep"> | </span> <span class="comments-link">[Leave
-a
-comment](/blog/2012/11/visualizing-m-lab-data-with-bigquery/#respond)</span>
-
-### Leave a Reply <a href="/blog/2012/11/visualizing-m-lab-data-with-bigquery/#respond" id="cancel-comment-reply-link">Cancel reply</a>
-
-<span id="email-notes">Your email address will not be published.</span>
-Required fields are marked <span class="required">\*</span>
-
-Comment
-
-Name <span class="required">\*</span>
-
-Email <span class="required">\*</span>
-
-Website
-
-Recent Posts
-============
-
--   [London
-    Calling](/blog/2018/04/london-calling/ "Look London Calling")
--   [The Rise and Fall of Ziggy
-    Stardust](/blog/2015/05/the-rise-and-fall-of-ziggy-stardust/ "Look The Rise and Fall of Ziggy Stardust")
--   [](/blog/?p=876467171 "Look")
--   [The only winning move is not to
-    play](/blog/2014/08/the-only-winning-move-is-not-to-play/ "Look The only winning move is not to play")
--   [s/GOOG/TWTR/](/blog/2014/02/sgoogtwtr/ "Look s/GOOG/TWTR/")
--   [URL shortener in
-    go](/blog/2014/01/url-shortener-in-go/ "Look URL shortener in go")
--   [All the small
-    things](/blog/2014/01/all-the-small-things/ "Look All the small things")
--   [gomud](/blog/2013/11/gomud/ "Look gomud")
--   [Hole hearted](/blog/2013/09/hole-hearted/ "Look Hole hearted")
--   [Typed data for performance
-    boost](/blog/2013/06/typed-data-for-performance-boost/ "Look Typed data for performance boost")
-
-Archives
-========
-
--   [April 2018](/blog/2018/04/)
--   [May 2015](/blog/2015/05/)
--   [August 2014](/blog/2014/08/)
--   [February 2014](/blog/2014/02/)
--   [January 2014](/blog/2014/01/)
--   [November 2013](/blog/2013/11/)
--   [September 2013](/blog/2013/09/)
--   [June 2013](/blog/2013/06/)
--   [May 2013](/blog/2013/05/)
--   [March 2013](/blog/2013/03/)
--   [February 2013](/blog/2013/02/)
--   [December 2012](/blog/2012/12/)
--   [November 2012](/blog/2012/11/)
--   [September 2012](/blog/2012/09/)
--   [May 2012](/blog/2012/05/)
--   [March 2012](/blog/2012/03/)
--   [January 2012](/blog/2012/01/)
--   [September 2011](/blog/2011/09/)
--   [May 2011](/blog/2011/05/)
--   [April 2011](/blog/2011/04/)
--   [February 2011](/blog/2011/02/)
--   [January 2011](/blog/2011/01/)
--   [December 2010](/blog/2010/12/)
--   [November 2010](/blog/2010/11/)
--   [October 2010](/blog/2010/10/)
--   [September 2010](/blog/2010/09/)
--   [August 2010](/blog/2010/08/)
--   [July 2010](/blog/2010/07/)
--   [June 2010](/blog/2010/06/)
--   [May 2010](/blog/2010/05/)
--   [April 2010](/blog/2010/04/)
--   [March 2010](/blog/2010/03/)
--   [February 2010](/blog/2010/02/)
--   [January 2010](/blog/2010/01/)
--   [December 2009](/blog/2009/12/)
--   [November 2009](/blog/2009/11/)
--   [October 2009](/blog/2009/10/)
--   [July 2009](/blog/2009/07/)
--   [May 2009](/blog/2009/05/)
--   [April 2009](/blog/2009/04/)
--   [March 2009](/blog/2009/03/)
--   [February 2009](/blog/2009/02/)
--   [January 2009](/blog/2009/01/)
--   [December 2008](/blog/2008/12/)
--   [November 2008](/blog/2008/11/)
--   [October 2008](/blog/2008/10/)
-
-Search
-======
-
-Search
-
-Copyright © Dominic Hamon 2021. WordPress theme by [Ryan
-Hellyer](https://geek.hellyer.kiwi/ "Ryan Hellyer").

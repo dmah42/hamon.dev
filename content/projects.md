@@ -32,8 +32,41 @@ _#go #c #ebpf_
 
 ## inactive projects
 
-TODO...
+### [mrdo](https://github.com/dominichamon/mrdo)
+
+a toy language, the main idea of which was that operations on collections are
+run in parallel by the vm without developer hints.
+
+originally written in C++, but rewritten from scratch with a VM, REPL, etc in
+Rust.
+
+_#c++ #rust_
+
+### [dmanix](https://github.com/dominichamon/dmanix)
+
+an i386 OS written in C++.  i didn't study comp sci so i never wrote an OS.  so
+i wrote an OS.
+
+_#c++_
+
+### [gomud](https://github.com/dominichamon/gomud)
+
+i cut my teeth as a programmer writing code for a MUD so when it came to
+learning Go, i built a MUD engine.
+
+more context in [this blog post](/blog/gomud).
+
+_#go_
 
 ## experimental stuff
 
-TODO...
+### [z80cpp](https://github.com/dominichamon/z80cpp)
+
+a very silly project that enables writing of optimal z80 assembly from C++.  no,
+it's not a backend for LLVM (that would be the obvious way of doing it).
+instead, we compile to 32-bit x86 assembly and then transpile it to z80.
+
+the transpiler is written in Go.
+
+_#go #asm #z80_
+

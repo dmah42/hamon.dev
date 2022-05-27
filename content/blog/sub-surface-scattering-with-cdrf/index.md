@@ -1,4 +1,5 @@
 +++
+math = true
 title = "sub-surface scattering with cdrf"
 author = "dominic"
 date = "2010-08-25"
@@ -30,12 +31,11 @@ from Stanford’s [3d scanning repository](http://graphics.stanford.edu/data/3Ds
 First, the authors of the paper attempt to fit their data using the following
 CDRF:
 
-<!-- TODO: use mathjax or equivalent -->
-![](./eq1.png)
+$$ f\_r \lparen \theta, \kappa\rparen = \lparen L\_i * g\rparen\lparen\theta\rparen $$
 
 Where is the incident light energy and is a gaussian:
 
-![](./eq2.png)
+$$ L\_i \lparen\theta\rparen = \max\lparen\cos\lparen\theta\rparen, 0\rparen $$
 
 As can be seen from figure 2(c) in the paper, this is not a particularly
 good fit though it does match the data qualitatively with a Lambert type
@@ -45,7 +45,7 @@ However, a better quantitative fit is given by (thanks to
 <a href="http://ccollomb.free.fr/" class="vt-p">Cedrick Collomb</a> for
 help with this):  
 
-![](./eq3.png)
+$$ f\_r \lparen\theta, \kappa\rparen = {\frac {1+\kappa} 4}{\frac {\cos\lparen \min\lparen {\frac {\lparen 5 + \kappa\rparen\theta} 4}, \pi \rparen \rparen + 1} {1 + \lparen{\frac {\ln\lparen 1 + 1.7\kappa \rparen\theta} {1.45} }\rparen ^{10} } } + 0.075\lparen 1 - \kappa \rparen$$
 
 Once you have this, it’s time to move on to measuring the curvature of
 your mesh.

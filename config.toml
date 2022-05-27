@@ -1,5 +1,5 @@
 baseURL = 'https://hamon.dev/'
-title = 'hamon.dev'
+title = 'so i built a thing'
 languageCode = 'en'
 defaultContentLanguage = 'en'
 theme = 'hugo-coder'
@@ -11,9 +11,9 @@ pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
 
 [params]
-  author = "dominic hamon"
+  author = "dma"
   info = "🏢 engineering manager .. 🔙 ex-physicist .. 🐕 rescuer .. 💀 tattooed troublemaker .. 🧠🌈"
-  description = "dominic hamon's site"
+  description = "dma blogs about building things"
   keywords = "blog,developer,personal"
   avatarurl = "images/avatar.jpg"
 

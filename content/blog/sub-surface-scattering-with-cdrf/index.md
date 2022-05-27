@@ -12,8 +12,6 @@ tags = [
 ]
 +++
 
-# Sub-surface scattering with CDRF
-
 ## Introduction
 In [this paper](http://portal.acm.org/citation.cfm?id=1837026.1837086), Kubo,
 Dobashi and Morishima present a compelling case for using a curvature dependent

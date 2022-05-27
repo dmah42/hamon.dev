@@ -11,8 +11,6 @@ tags = [
 ]
 +++
 
-# Embedding the Dart VM: Part One
-
 The [Dart](http://dartlang.org/) VM can be run as a standalone tool from
 command-line, and is embedded in a branch of Chromium named Dartium, but all of
 the public instructions I could find only discuss how to extend the VM with

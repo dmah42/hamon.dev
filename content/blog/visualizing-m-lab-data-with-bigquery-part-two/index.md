@@ -12,8 +12,6 @@ tags = [
 ]
 +++
 
-# Visualizing M-Lab data with BigQuery: Part Two
-
 When I wrote [Part
 One](/blog/visualizing-m-lab-data-with-bigquery/ "Visualizing M-Lab data with BigQuery"),
 I wasn’t aware that it was going to need a Part Two. However, I was unsatisfied

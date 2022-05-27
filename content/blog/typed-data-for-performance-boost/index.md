@@ -11,8 +11,6 @@ tags = [
 ]
 +++
 
-# Typed data for performance boost
-
 After reading John McCutchan’s recent post on [numeric
 computation](http://www.dartlang.org/articles/numeric-computation/ "Numeric Computation")
 in Dart, and a conversation with Srdjan Mitrovic from the Dart VM team, I made

@@ -12,8 +12,6 @@ tags = [
 ]
 +++
 
-# Benchmarking DartBox2d
-
 Joel Webber wrote [this excellent blog
 post](http://blog.j15r.com/2011/12/for-those-unfamiliar-with-it-box2d-is.html "Box2D as a measure of runtime performance")
 in which he tests native versions of [Box2D](http://box2d.org/ "Box2D") against

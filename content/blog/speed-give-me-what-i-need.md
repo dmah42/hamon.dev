@@ -7,7 +7,6 @@ tags = [
 ]
 +++
 
-# Speed: Give me what I need
 
 Do you host your site through [dreamhost](http://dreamhost.com/ "dreamhost")? If
 not, you should.  They’re fantastic and great.

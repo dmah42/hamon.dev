@@ -12,8 +12,6 @@ tags = [
 ]
 +++
 
-# All the small things
-
 Someone, on checking out my
 [github](http://github.com/dominichamon "github") page, recently
 commented that I’m more of a breadth than a depth developer. I’m not

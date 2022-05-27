@@ -14,8 +14,6 @@ tags = [
 ]
 +++
 
-# Visualizing M-Lab data with BigQuery
-
 I recently moved to a new group at Google: [M-Lab](http://measurementlab.net/).
 The Measurement Lab is a cross-company supported platform for researchers to run
 network performance experiments against. Every experiment running on M-Lab is

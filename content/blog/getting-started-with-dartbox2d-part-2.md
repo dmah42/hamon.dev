@@ -11,7 +11,6 @@ tags = [
 ]
 +++
 
-# Getting started with DartBox2d: part 2
 
 This is an update to [this
 post](/blog/getting-started-with-dartbox2d "Getting started with DartBox2d")

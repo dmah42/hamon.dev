@@ -11,7 +11,6 @@ tags = [
 ]
 +++
 
-# Porting Colossal Cave Adventure to Native Client
 
 [Native Client](http://code.google.com/chrome/nativeclient) (NaCl) is a new
 technology built in to Chrome that allows native code (read C++) to be compiled

@@ -10,8 +10,6 @@ tags = [
 ]
 +++
 
-# URL shortener in go
-
 I recently combined all my various blogs into this one and then realised that,
 yet again, the length of my name is a pain. Especially when it comes to URLs.
 I also realised that I’d never tried to build a URL shortener, so I did.

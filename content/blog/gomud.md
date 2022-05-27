@@ -11,7 +11,6 @@ tags = [
 ]
 +++
 
-# gomud
 
 I needed an excuse to learn [go](http://golang.org/), and none of the usual
 candidate projects that I usually use to pick up a new language seemed to fit

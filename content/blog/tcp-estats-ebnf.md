@@ -1,8 +1,7 @@
 +++
 title = "tcp estats ebnf"
 author = "dominic"
-date = "2022-05-27"
-draft = true
+date = "2022-05-30"
 categories = [
   "go",
   "C"
@@ -48,21 +47,22 @@ So I built a thing[^3]: https://github.com/dominichamon/tcp_estats-ebnf.
 It's taken a few attempts to get both the approach right, and BPF itself is
 quite finicky.  The C code is only validated at runtime, the error messages are
 arcane, and knowing when to copy things from kernel to userspace is something
-that can only be picked up as you go.
+that isn't well documented.  However, it can be picked up (even if i still don't
+feel like I know _exactly_ what i'm doing).
 
 In its current form, the project is hooked into a few kernel functions, allowing
-~half of the RFC4898 metrics to be collected.  It dumps the results to stdout,
-which isn't great, and should probably move to JSON at some point.  But as a
-proof-of-concept, it's, well, proving that it can work.
+~half of the RFC4898 metrics to be collected.  It dumps the results to stdout as
+JSON, and the latest set of commits have refined the project structure.  It's
+just beyond "proof of concept" phase.
 
 ## next steps
 
-* Refactor the Go code to be more like a typical project
 * Add more hooks
-* Fix any bugs with where hooks have already been placed
-* Output to JSON
+* Validate the metrics
+* Add a bunch of tests!
 
-If any of you reading this are interested in helping out, the repo is open for
+If any of you reading this are interested in helping out, the
+[repo](https://github.com/dominichamon/tcp_estats-ebnf) is open for
 business!
 
 

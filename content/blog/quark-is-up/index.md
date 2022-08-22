@@ -105,6 +105,10 @@ on.  I'm tempted to move the minecraft server too, but I quite like the idea
 of running those on the raspi cluster.  Though it would free up the cluster to 
 be available for ad-hoc work[^3], I'm concerned the load might gum up quark.
 
+I'll need an RSS reader, so maybe host miniflux... move [the blog](https://hamon.dev)
+over to it.. then obviously set up nftables for some firewall goodness and try
+not to lock myself out.
+
 Now I'm an Arch convert, I'm figuring out what I can do to support it and give 
 something back.
 

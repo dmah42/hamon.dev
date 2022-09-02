@@ -4,5 +4,5 @@ set +x
 set -e
 
 hugo
-rsync -P -a ./public/* dh_du94yj@hamon.dev:~/hamon.dev/
+#rsync -P -a ./public/* dh_du94yj@hamon.dev:~/hamon.dev/
 rsync -P -a ./public/* dma@quark.fritz.box:/usr/share/nginx/hamon.dev/html/

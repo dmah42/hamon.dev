@@ -6,7 +6,6 @@ tags = [
   "linux",
   "server"
 ]
-draft = true
 +++
 
 A few weeks ago I finally upgraded the homelab from Intel NUC-as-a-server to 
@@ -19,7 +18,7 @@ a patch panel, Netgear 48-port switch, and various smart home hub devices. It
 also hosted the Raspberry Pi running [pi-hole](https://pi-hole.net) before that 
 moved to the cluster[^1].
 
-<!-- TODO: pic of cluster -->
+<img src="./cluster.jpg" height=300px>
 
 The newest addition to the family is `quark`: a Supermicro shallow-depth 1U 
 server with an Atom 4-core processor, 500GB SSD, 32GB RAM and 8TB of spinning 
@@ -27,8 +26,6 @@ disks in a Raid 0 array[^2].  There are extra empty RAM slots and four extra
 spinning disk slots to fill in the future.  I got it prebuilt from
 [Broadberry](https://www.broadberry.co.uk) and I want to give them a shout-out
 too as their service was great, even amongst the supply chain issues.
-
-<!-- TODO: pic of rack -->
 
 ## OS stuff
 
@@ -65,7 +62,7 @@ I only have a few services running at the moment:
 1. `nginx` of course, to host both internal and external sites, and to act as 
 a reverse proxy for the other services.  Internally I am running
 [flame](https://github.com/pawelmalak/flame) as a self-hosting dashboard, and 
-I'm in the process of moving my personal sites from 
+I'm in the process of moving my personal sites, including this one, from 
 [dreamhost](https://dreamhost.com), who as I've said before 
 [are great](/blog/speed-give-me-what-i-need.md), to being hosted from home.
 
@@ -77,7 +74,7 @@ vs plex, at least) don't call home.
 
 1. To make it feel a bit more like a real setup, i'm also running some 
 monitoring software: [prometheus](https://prometheus.io) and
-[grafana](https://grafana.com). <!-- TODO insert screenshot -->.
+[grafana](https://grafana.com).
 
     a. I was running grafana previously, with an
     [influxdb](https://www.influxdata.com) and [collectd](https://collectd.org) 
@@ -87,6 +84,10 @@ monitoring software: [prometheus](https://prometheus.io) and
 
     b. As well as the `prometheus-node-exporter` on every machine, I'm running 
     `prometheus-blackbox-exporter` to probe all the running services.
+
+    c. I may add some custom exporters for specific services as necessary.
+
+![](./grafana.png)
 
 ## Why "quark"?
 
@@ -102,7 +103,7 @@ and self host instead of relying on Hue/Yale/Ikea/Whoever wants me to set up
 accounts and send every API request over the internet before turning a light
 on.  I'm tempted to move the minecraft server too, but I quite like the idea 
 of running those on the raspi cluster.  Though it would free up the cluster to 
-be available for ad-hoc work[^3].
+be available for ad-hoc work[^3], I'm concerned the load might gum up quark.
 
 Now I'm an Arch convert, I'm figuring out what I can do to support it and give 
 something back.
@@ -111,7 +112,8 @@ It's tempting to step way back into my past and self-host mail, run a local
 NNTP server, and eschew the web for `mutt` and `tin`, but that may be nostalgia
 talking.
 
-I'm open to any suggestions for services I could/should run: [@dma@hachyderm.io](https://hachyderm.io/@dma).
+I'm open to any suggestions for services I could/should run:
+[@dma@hachyderm.io](https://hachyderm.io/@dma).
 
 
 [^1]: also containing two minecraft servers and a retropie.

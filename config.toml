@@ -101,3 +101,7 @@ pygmentscodefencesguesssyntax = true
   name = "About"
   weight = 3
   url = "https://dominichamon.com/"
+
+
+[markup.goldmark.renderer]
+unsafe = true

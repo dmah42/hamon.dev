@@ -3,6 +3,13 @@
 set +x
 set -e
 
+hs=`hostname`
+
 hugo
 #rsync -P -a ./public/* dh_du94yj@hamon.dev:~/hamon.dev/
-rsync -P -a ./public/* dma@quark.fritz.box:/usr/share/nginx/hamon.dev/html/
+if [ "$hs" = "quark" ]; then
+  rsync -P -a ./public/* /usr/share/nginx/hamon.dev/html/
+else
+  rsync -P -a ./public/* dma@quark.fritz.box:/usr/share/nginx/hamon.dev/html/
+fi
+

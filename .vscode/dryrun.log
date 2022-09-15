@@ -1,6 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/dma/dev/hamon.dev'
-make: Leaving directory `/Users/dma/dev/hamon.dev'
+make: Entering directory '/home/dma/dev/hamon.dev'
+make: Leaving directory '/home/dma/dev/hamon.dev'
  
 make: *** No targets specified and no makefile found.  Stop.
 

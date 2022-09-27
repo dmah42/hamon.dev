@@ -91,6 +91,6 @@ and avoid the issue, but it is nicer to avoid this where possible[^2].
 
 the magic parameter is `#[serde(borrow)]` applied to any field that needs it.
 
-[^1] serde only supports borrowing of `str` and `[u8]` out of the box.
-[^2] this is potentially premature optimization, but also a fun problem to
+[^1]: serde only supports borrowing of `str` and `[u8]` out of the box.
+[^2]: this is potentially premature optimization, but also a fun problem to
 solve.

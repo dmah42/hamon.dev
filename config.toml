@@ -45,6 +45,12 @@ pygmentscodefencesguesssyntax = true
   weight = 1
   url = "https://github.com/dominichamon/"
 [[params.social]]
+  name = "mastodon"
+  icon = "fa fa-mastodon fa-2x"
+  weight = 2
+  rel = "me"
+  url = "https://hachyderm.io/@dma"
+[[params.social]]
   name = "linkedin"
   icon = "fa fa-linkedin fa-2x"
   weight = 3
@@ -64,11 +70,6 @@ pygmentscodefencesguesssyntax = true
   icon = "fa fa-twitch fa-2x"
   weight = 5
   url = "https://www.twitch.tv/dma42"
-[[params.social]]
-  name = "mastodon"
-  icon = "fa fa-mastodon fa-2x"
-  weight = 2
-  url = "https://hachyderm.io/@dma"
 #[[params.social]]
 #  name = "discord"
 #  icon = "fa fa-discord fa-2x"

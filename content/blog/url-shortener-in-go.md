@@ -13,7 +13,7 @@ tags = [
 I recently combined all my various blogs into this one and then realised that,
 yet again, the length of my name is a pain. Especially when it comes to URLs.
 I also realised that I’d never tried to build a URL shortener, so I did.
-[Full source available here](http://github.com/dominichamon/goshorturl "goshorturl @ github").
+[Full source available here](http://github.com/dmah42/goshorturl "goshorturl @ github").
 
 There are a few tutorials around about writing one in PHP, but I decided to use
 [Go](http://golang.org/). The basic idea is the same.

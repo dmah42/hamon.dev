@@ -24,7 +24,7 @@ API, add an event handler or API server, and stick it under our mastodon
 instance.
 
 it's been quite the learning curve.  though i've managed to code up most of a
-[programming language](https://github.com/dominichamon/mrdo) in rust before
+[programming language](https://github.com/dmah42/mrdo) in rust before
 (compiler, VM, REPL, ASM), this project is requiring getting to grips with
 borrowing and lifetimes like never before.
 

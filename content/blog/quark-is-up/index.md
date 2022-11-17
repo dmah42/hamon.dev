@@ -119,4 +119,4 @@ I'm open to any suggestions for services I could/should run:
 [^1]: also containing two minecraft servers and a retropie.
 [^2]: I have offsite backups so I don't need the redundancy, but I may want to 
 add more later and the read/write throughput matters more. 
-[^3]: Using [sprinkle](https://github.com/dominichamon/sprinkle), naturally.
+[^3]: Using [sprinkle](https://github.com/dmah42/sprinkle), naturally.

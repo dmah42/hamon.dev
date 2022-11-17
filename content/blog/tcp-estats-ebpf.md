@@ -40,7 +40,7 @@ program to attach to kernel functions.  It was already being used to do some
 network traffic analysis, and even rerouting, but it struck me that maybe it
 could also be used to collect rich statistics on TCP connections.
 
-So I built a thing[^3]: https://github.com/dominichamon/tcp_estats-ebpf.
+So I built a thing[^3]: https://github.com/dmah42/tcp_estats-ebpf.
 
 ## tcp\_estats-ebpf
 
@@ -62,7 +62,7 @@ just beyond "proof of concept" phase.
 * Add a bunch of tests!
 
 If any of you reading this are interested in helping out, the
-[repo](https://github.com/dominichamon/tcp_estats-ebpf) is open for
+[repo](https://github.com/dmah42/tcp_estats-ebpf) is open for
 business!
 
 

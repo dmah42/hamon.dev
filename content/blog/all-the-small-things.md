@@ -13,14 +13,14 @@ tags = [
 +++
 
 Someone, on checking out my
-[github](http://github.com/dominichamon "github") page, recently
+[github](http://github.com/dmah42 "github") page, recently
 commented that I’m more of a breadth than a depth developer. I’m not
 sure that this is entirely accurate, though I didn’t take offence, but
 it is true that many of my personal projects are small one-off toys.
 This post is a tour of some of them.
 
 ## dmanix
-https://github.com/dominichamon/dmanix
+https://github.com/dmah42/dmanix
 
 I didn’t study Computer Science at university[^1] and I sometimes feel like I
 missed out on some key programming projects like writing your own operating
@@ -35,7 +35,7 @@ The only thing that separates it from other \*nix OSes is that it’s
 written in more C++ than C.
 
 ## LRU cache
-https://github.com/dominichamon/lru-cache
+https://github.com/dmah42/lru-cache
 
 One of the interview questions I ask on occasion[^2] is to implement an LRU
 cache in C or C++. The idea behind an LRU cache is that you have a fixed
@@ -53,7 +53,7 @@ the unordered\_map to store the key-value pairs for fast lookup, and the
 list to track how recently items are accessed.
 
 ## buckets
-https://github.com/dominichamon/buckets
+https://github.com/dmah42/buckets
 
 There’s a well-known class of puzzles in which one is asked to fill a
 container using two other odd-sized containers. For example, fill a 5l
@@ -70,7 +70,7 @@ the solution space is relatively small and this would return the
 shortest solution.
 
 ## queueserve
-https://github.com/dominichamon/queueserve
+https://github.com/dmah42/queueserve
 
 One of the things I’ve been doing recently is learning
 [Go](http://golang.org/)[^3].  I felt that I needed to get to grips with the
@@ -82,7 +82,7 @@ concurrent clients thanks to Go’s built-in support for concurrent HTTP
 serving. The server is using lock-free queues to maximize concurrency.
 
 ## evernote
-https://github.com/dominichamon/evernote
+https://github.com/dmah42/evernote
 
 [Evernote](http://evernote.com/ "evernote") have a series of [coding
 challenges](https://evernote.com/careers/challenge.php "coding challenge @ evernote")

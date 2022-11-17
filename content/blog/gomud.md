@@ -20,7 +20,7 @@ hobby programming to professional was largely thanks to working as a creator on
 [MUD](https://en.wikipedia.org/wiki/MUD) could be the perfect platform, given
 the support for concurrency and networking. And then I realised it would be even
 more interesting to write a MUD engine that others could use to develop MUDs. So
-I did: [gomud](http://github.com/dominichamon/gomud).
+I did: [gomud](http://github.com/dmah42/gomud).
 
 Right now you can define rooms that have exits, players are persistent (though
 there are no passwords yet) and supported commands include ‘say’, ‘tell’, ‘me’,

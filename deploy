@@ -10,6 +10,6 @@ hugo
 if [ "$hs" = "quark" ]; then
   rsync -P -a ./public/* /usr/share/nginx/hamon.dev/html/
 else
-  rsync -P -a ./public/* dma@quark.fritz.box:/usr/share/nginx/hamon.dev/html/
+  rsync -P -a ./public/* dma@quark.lan:/usr/share/nginx/hamon.dev/html/
 fi
 

@@ -110,3 +110,5 @@ unsafe = true
 [markup.highlight]
 lineNos = true
 lineNumbersInTable = true
+guessSyntax = true
+style = "dracula"

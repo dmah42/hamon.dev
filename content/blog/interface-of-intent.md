@@ -1,5 +1,5 @@
 +++
-title = "interface of intent"
+title = "Exploring a different kind of interface"
 author = "dominic"
 date = "2026-03-12"
 categories = [
@@ -13,90 +13,65 @@ tags = [
 ]
 +++
 
-## Why Your Next Big Feature Shouldn't Have a UI
+I've been thinking a lot about how we build features. We've all been in those
+planning meetings where a great idea from a user comes up, but it's a niche
+feature for a power-user. We do the math and realize that building a whole UI
+for it would take time away from other important work. So, the feature gets a
+"good enough" version that doesn't quite satisfy anyone, or it withers away in
+the backlog[^1].
 
-Every product has a graveyard of features filled with "Quality of Life" features
-that are technically sound, beautifully designed, and ultimately, a maintenance
-burden.
+Lately, with the rise of AI assistants and protocols like **MCP (Model Context
+Protocol)**, I've started to wonder if there's another way. What if the best
+interface for some features is no traditional UI at all, but a solid API and a
+clear description?
 
-In the Old World[^1], product development is a zero-sum game of pixel real
-estate and cognitive load. We've all sat in planning sessions where a Product
-Manager identifies a genuine pain point raised by users, the engineering team
-estimates it, and we look at it alongside all the other incoming requests,
-platform improvements, and forward looking features. We realize that building a
-bespoke UI for this niche power-user workflow will displace three other core
-features that appeal to the masses or provide strategic advantage for the
-product. Ultimately, we either build a "good enough" version that leaves users
-frustrated, or it sits on the backlog to die[^2].
+## An old problem with a new angle
 
-The democratization of agentic interfaces and protocols like **MCP (Model
-Context Protocol)** has fundamentally shifted that calculus. We have entered an
-era where the most sophisticated "UI" we build for a feature might just be a
-rock-solid API and a well-described schema.
+Let's imagine a product I've been tinkering with in my head: **Campain**, a
+B2B platform for professional tabletop RPG game masters.
 
-## The Old Math: The Tyranny of the Button
+A request comes in for **"Campaign Archival."** A game master wants to regularly
+back up all their campaign data (session logs, character sheets, and so on) to
+their own cloud storage like Google Drive or S3.
 
-Let's illustrate this idea with a dummy product. Imagine we’re building
-**Campain**, a B2B platform for professional tabletop RPG game masters.
+In the past, my first thought would be to design a UI: a new settings page,
+OAuth buttons for different cloud providers, a scheduling interface[^2]. It's a lot
+of work for a feature that only a subset of users might use, and it adds to the
+maintenance load. We'd probably build it, but it would be a trade-off against
+other features.
 
-A feature request comes in from our biggest user, Barry Bybax for **"Campaign
-Archival."** When a campaign ends, or to allow a campaign to be exported to
-another platform, the Game Master wants to set up a regular dump of all raw
-session data, character sheets, etc to the Game Master's own cloud storage
-(Google Drive, S3, etc).
+## A different approach
 
-**In the Old World, the calculus might be:**
+But what if we asked a different question: **"Do *we* need to build the UI for
+this?"**
 
-- **Design and Implementation Cost:** We need a "Settings > Integrations"
-  sub-page to set up the relationship to the Game Master's storage. We need a
-  scheduler UI[^3]. We need an export flow with OAuth integrations for different
-  cloud providers.
-- **Maintenance Cost:** If storage providers change their API, or a new storage
-  provider integration is requested, this UI needs updating. We have to QA these
-  features across every browser and device.
-- **Opportunity Cost:** Whatever time this work takes, it's capacity we're not
-  putting against the core product or strategic improvements.
+If we build a solid, reliable API for "Data Archival," we can provide the same
+capability with a fraction of the effort. A few years ago, this would have only
+served the most technical users who could write scripts to interact with the
+API. But things are different now if we expose this API through something like
+the [**Model Context Protocol**](https://modelcontextprotocol.io/introduction).
 
-We'd build it, because it's been requested by our most valuable users, and it's
-a good idea. But it's work that displaces innovation and potential impact of new
-features; features that might keep us relevant in the market. We're building a
-bridge for a small group of travelers when we could be building a monorail for
-modern commuters.
+MCP allows an AI assistant (the kind that's becoming common in browsers,
+sidebars, and terminals) to see and use an application's features as tools.
+Instead of spending weeks on a full UI, we can focus on building the core
+capability.
 
-## The New Calculus: "Why should _we_ build this UI?"
+A user could then just tell their assistant: _"Export the campaign logs for the
+'Golden Brigade' to my S3 bucket in CSV format."_ The assistant would see the
+`export_campaign_data` endpoint we've exposed, understand the parameters, and
+set up the export. Some newer assistants can even run these tasks on a schedule.
 
-Today, as an architect, my first question is no longer "How do we build this?"
-It's **"Does _we_ need to build this?"**
-
-If we build a high-performance, idempotent API for "Data Archival" we've
-provided the ability for 20% of the effort. Had we taken this approach in the
-old world, it would have satisfied only our most technologically savvy users.
-Things have changed if we wrap this API in an [**MCP
-server**](https://modelcontextprotocol.io/introduction).
-
-The Model Context Protocol allows an AI agent (the one already sitting in your
-user's sidebar, browser, or terminal) to "see" your application's capabilities
-as tools it can use. Instead of us spending weeks building and testing the end-
-to-end experience, we focus on providing the **capability**.
-
-The user simply tells their agent: _"Export the campaign logs for the 'Golden
-Brigade' to my S3 bucket in CSV format."_ The agent looks at our MCP-exposed
-API, sees the `export\_campaign\_data` endpoint, understands the parameters, and
-sets up the export on the user's behalf. More modern agents are able to run
-these as scheduled tasks, satisfying the broader user journey.
-
-**This is the optimism of the new era:** We no longer have to choose between
-"neglecting the user" and "bloating the product"; we can provide professional-
-grade power tools without cluttering the workshop for the hobbyist.
+This feels like a more optimistic way to solve the problem. We don't have to
+choose between neglecting a user's need and adding complexity to our product. We
+can provide powerful tools without cluttering the main interface.
 
 ---
 
-> ### 🛠️ Technical Sidebar: The Anatomy of an MCP Server
+> ### A quick sidebar at the technical side of MCP
 >
-> In the past, "documentation" was for developers. In the agentic world,
-> documentation _is_ the interface. Here is how that "Campaign Archival" utility
-> looks when defined as an MCP tool for Campain. Note how the "UX" is
-> handled entirely by the `description` fields.
+> In this world, our documentation becomes the interface. Here’s how that
+> "Campaign Archival" tool might look in an MCP definition for Campain. The
+> "UX" is all in the `description` fields.
 >
 > ```json
 > {
@@ -123,179 +98,137 @@ grade power tools without cluttering the workshop for the hobbyist.
 > }
 > ```
 >
-> By defining this, the LLM understands the constraints and prompts the user if
-> they forget the "destination_url" field.
+> By defining this, an LLM can understand the requirements and can prompt the
+> user if they forget something like the `destination_url`.
 
 ---
 
-## The Realization of the "API-First" Dream
+## "API-First" finally feels real
 
-For a few decades, we've preached a gospel of "API-First" development. If we're
-being honest with ourselves, that has rarely been the reality. In most
-development houses, the API is the byproduct of the UI's needs.
+Professional developers been talking about "API-First" development for years,
+but in my experience, it's often been more of an ideal than a reality. The API
+was often just a byproduct of what the UI needed.
 
-The agentic shift realizes this vision: For the first time, a API primitive is
-instantly useful because the LLM is the "universal adapter" we’ve been missing.
-We no longer have to wait for a third party to build an integration: The agent
-reads the schema and _just starts using it_.
+This shift towards AI assistants seems to make the "API-First" dream more
+practical. An API becomes instantly useful because the LLM acts as a universal
+adapter. We don't have to wait for someone to build an integration; the
+assistant can read the schema and start using it right away.
 
-This, of course, opens the door to the next question: How much do we build our
-product UI on top of this agent-ready API layer? A topic for another post...
+Requiring a well-formed API that an MCP can understand also drives better API
+development: If an agent can understand how to use it, humans definitely can.
+This is not always the case for APIs built for UIs.
 
-## The Semantic Discovery Problem
+This leads to another interesting question: how much of our own product's UI
+should we build on top of this agent-ready API layer? That's a topic for another
+day.
 
-If there isn't a button in the sidebar, how does the user know the feature
-exists? This is the new "Semantic Friction" of product discovery. In the old
-world, we relied on "Feature Tours" and tooltips. In the agentic world, we rely
-on [Tool
-Discovery](https://modelcontextprotocol.io/specification/2025-06-18/server/tools).
+## How do people find it?
 
-When an agent "enters" your product via MCP, it performs an inventory of
-available tools, and when to use them. As engineers, our job moves from "making
-the button blue" to "making the tool description undeniable." We are moving
-towards a **Headless Product** strategy where the core of Campain isn't the web
-site; it’s the underlying business logic. We are building for the user's digital
-proxies: the agents that can discover, understand, and execute so the human
-doesn't have to understand how to.
+If there's no button for it, how does a user discover the feature? This is a new
+kind of friction. In the past, we had feature tours and tooltips. In an
+agent-driven world, we have [Tool Discovery](https://modelcontextprotocol.io/specification/2025-06-18/server/tools).
 
-### Monitoring the Death of the Feature Request
+When an agent connects to our product via MCP, it asks for a list of available
+tools and when to use them. As engineers, our job becomes less about making a
+button look good and more about writing a clear and undeniable description for a
+tool. It feels like we're moving towards a "Headless Product" idea, where the
+core of Campain isn't the website, but the business logic underneath. We're
+building for the user's digital proxies: the agents that can discover,
+understand, and act, so the human doesn't have to.
 
-This change is observable: Keep an eye on your feature requests.
+I'll be watching our feature requests to see how this plays out. Will our
+advanced users keep asking for new buttons, or will they start asking, "Why
+can't my agent create an archive?"
 
-Are your sophisticated customers still asking for new buttons? Or are they
-starting to ask: _"Why can't my agent create an archive?"_
+## A thought on Personal UIs
 
-## Embracing the Inconsistent: the Personal UI
+Thinking a bit further ahead, there's another interesting possibility. If UIs
+become trivial to generate with AI, we might see the rise of the **Personal
+UI**. In a world where Campain doesn't have an "Archive Setup" screen, when a
+user needs one, their local AI could generate a temporary UI just for that
+task, and get rid of it when they're done[^3]. As the provider of the platform, I
+wouldn't mind what that UI looks like, as long as it's calling my secure and
+validated API. It's an interesting idea to ponder.
 
-There’s a bold future here, too. If UIs are now trivial to "vibe-code" with AI,
-we need to embrace the **Personal UI**. In this world where Campain doesn't
-have an "Archive Setup" screen at all, when a user needs one, their local AI
-can generate a bespoke, ephemeral UI on the fly, tailored exactly to their
-specific task that day, and discard it when they’re done[^4]. As the providers
-of the platform, we don't care what that UI looks like. We just care that it's
-calling our rock-solid, secure, and validated API.
+## What about security?
 
-### A Disintermediation Caution
+Moving away from UI-constrained inputs brings up a new challenge. A UI can act
+as a natural barrier. If a field only accepts numbers, it's harder to inject a
+script. When the interface is a direct line to our API, we need to be more
+careful.
 
-There is of course another potential downside here: The more things shift into
-APIs, the more your customers can create their own experiences, the less
-opportunity you have to form a narrative or engage with users within your
-product. You may need to find new ways to ensure your product has value beyond
-the API surface, but ideally this shift in investment has freed up capacity to
-do just that.
+How do we stay secure without the crutch of a UI?
 
-## Agentic QA: Fuzz-Testing Intent
+### Verifying intent
 
-When we move the "Capability" to an agentic layer, we stop testing pixels and
-start testing **contracts**.
+We must treat a request from an agent as a proposal, not a command. For risky
+actions, like deleting all campaign archives, we can use a
+**Propose-Verify-Execute** loop.
 
-We can now deploy "Red Team Agents" whose entire job is to try and break the
-"Archival Utility". We don't give them a browser, but we do give them specific
-test cases: We can give them the MCP server and tell them: _"Try to archive data
-to an invalid bucket"_ or _"Try to dump logs from a campaign you don't own"_.
-This is **Agentic Fuzzing.** It's more robust than traditional unit testing
-because it tests the _combination_ of tools in ways a human tester might not
-think of.
+First, we can mark the MCP action with `destructiveHint: true`. This tells the
+agent's client that it should probably pause and ask the user for permission
+before proceeding.
 
-## The Security of Intent: Hardening the Agentic Boundary
+Additionally, when the agent calls the API, instead of executing the action
+immediately, the backend can return a `STAGED\_ACTION\_ID` and lock the resources.
+Our product could then send a notification to the user: "Your agent wants to
+archive 40GB of data. Click here to authorize." The ID also helps prevent the
+agent from retrying an action that hasn't been approved yet.
 
-Moving away from UI-constrained inputs introduces a new problem: **"Security of
-Intent."** In the old world, a UI acts as a physical barrier. If a field only
-accepts numbers, an agent (or a human) can't easily inject a script. When the
-interface is a direct "Interface of Intent," we lose that front-line defense.
+### Guardrails and policies
 
-How do we secure intent without the UI crutch?
+Our API layer needs to be smarter. We can implement "Intent Guardrails":
+server-side logic that looks at the context of a request. If a tool is called
+with a value that's far outside the normal range, the API can use guardrails
+(like [NVIDIA NeMo](https://github.com/NVIDIA/NeMo-Guardrails) or Pydantic) to
+return an error that the agent can understand.
 
-### Verification of Intent vs. Execution
+### Identity and the "acting as" problem
 
-We must treat an agent's request as a **Proposal**, not a Command. For high-risk
-primitives, like "Delete all campaign archives," we implement a
-[**Propose-Verify-Execute**
-loop](https://www.stackai.com/insights/human-in-the-loop-ai-agents-how-to-design-approval-workflows-for-safe-and-scalable-automation).
+In an agent-driven world, we need to distinguish between a user's permissions
+and an agent's scope. Just because I can delete the database doesn't mean my
+agent should be able to. We might be moving towards a model of **Just-In-Time
+Scoping**, where an agent gets a narrow set of permissions for a specific task,
+preventing a rogue agent from causing too much damage.
 
-First, we make sure to ensure the MCP action is tagged with
-`destructiveHint: true`, which tells the agentic client that it _should_ pause
-and ask the user for permission before letting the agent proceed.
+### Auditing as a first-class citizen
 
-Additionally, when the agent calls the API, instead of executing the API can
-return a `STAGED\_ACTION\_ID`, and the backend locks the resources. The product
-then sends a notification to the human user's UI saying: _"Your agent wants to
-archive 40GB of data to an unverified S3 bucket. Click here to authorize."_
+Every call from an agent should be logged with a clear "Reason" and a session
+ID. We're not just logging `400 Bad Request` anymore. We're logging the agent's
+stated reason for the action. This creates a "paper trail of intent" that can
+help us figure out what went wrong if something does.
 
-The ID serves as an idempotency token to ensure the agent doesn't manage to
-retry an action multiple times because the human didn't approve quickly enough.
+## Finding the right balance
 
-In MCP, this can also be handled by an _elicitation_.
-
-### Semantic Guardrails & Policy Primitives
-
-Our API layer needs to be smarter. We should implement **Intent Guardrails**:
-server-side logic that evaluates the context of a request. If a tool is called
-with a value that deviates more than 50% from the historical norm, the API
-should use guardrails ([NVIDIA NeMo](https://github.com/NVIDIA/NeMo-Guardrails),
-or Pydantic, etc) to return a `422 Unprocessable Entity` error that allows the
-agent to understand _why_ the intent was rejected.
-
-This can also be handled by _elicitation_ in MCP.
-
-### Identity & The "Acting As" Problem
-
-In an agentic world, we must distinguish between User Permissions and Agent
-Scope. Just because a User can delete the database doesn't mean their Agent
-should. We are moving toward a model of **Just-In-Time Scoping**, where an agent
-is granted a narrow set of permissions for a specific task duration, preventing
-a wayward agent from performing a mass-deletion under the user's high-level
-credentials.
-
-### Auditability as a First-Class Citizen
-
-Every agentic call must be tied to a clear "Reason" and a session ID. We aren't
-just logging `400 Bad Request` anymore. We are logging the agent's **stated
-justification** for the action. This creates a "Paper Trail of Intent" that
-allows us to perform post-mortem analysis: _"Why did the agent think it was a
-good idea to sync data to a Dropbox account in the middle of a battle?"_
-
-## The Strategic Balance: When to go "Headless"
-
-To help teams align on when to deliver a feature via an agentic capability
-versus a traditional UI, we can look at two axes: **Frequency** and
+To help decide when to build a feature with an agentic capability versus a
+traditional UI, I've been thinking about two factors: **Frequency** and
 **Complexity**.
 
-- **Low Frequency / High Logic (Agentic):** Features like data archival,
-  migration, or features that would require complex UIs to deliver. These are
-  essential but rare. Delivering these as high-leverage agentic capabilities
-  clears the roadmap.
-- **High Frequency / High Emotion (Bespoke UI):** Core gameplay loops, strategic
-  narrative, or brand-defining interactions. These deserve the high-touch,
-  tactile delight that only a bespoke UI can provide.
+- **Low Frequency / High Logic (Good for agents):** Features like data archival,
+  migrations, or other complex tasks that are essential but not used every day.
+  Building these as agent-based capabilities can free up the roadmap.
+- **High Frequency / High Emotion (Good for a UI):** The core parts of the
+  product, the things that define the brand and that users interact with all the
+  time. These deserve the care and attention of a well-crafted UI.
 
-## Conclusion: The Architect of Choice
+## Final thoughts
 
-The shift from "How do we build this UI?" to "Why should we build this UI?"
-is a critical cultural change that no longer means we're being grumpy,
-interface-hostile senior engineers, but are offering pragmatic solutions.
+The question is shifting from "How do we build this UI?" to "Should we build
+this UI?".
 
-By leveraging agentic interfaces for the "boring" necessities[^5], we are
-liberating our teams to balance priorities effectively between options
-for delivering impact.
+By using agentic interfaces for the "boring but necessary"[^4] features, we can free
+up our teams to focus on the parts of the product that really matter. Every bit
+of UI we *don't* have to maintain is time and energy we can spend on innovation
+elsewhere. We can build a world-class core and let the agents handle the
+plumbing.
 
-Every pixel we _don't_ have to maintain for a background utility is an
-"innovation token" we can spend elsewhere. It means we can focus our bespoke UI
-efforts on the features that actually matter and benefit from what UI can
-provide: The ones that define our product's soul and delight our users. We build
-the world-class core, we let the agents handle the plumbing.
-
-The next time you're in a planning session, ask if an MCP wrapper would deliver
-the solution more pragmatically. If the answer is yes, take the win. Let's stop
-building "just because we have to" and start building where it actually counts.
-
-The graveyard of unloved features is full enough. Let’s start building loved
-capabilities instead.
+The next time I'm in a planning session, I'm going to ask if an MCP wrapper
+would be a more pragmatic solution. It's an interesting new tool in our toolbox,
+and I'm excited to see where it leads.
 
 ---
 
-[^1]: which, let’s be honest, is still mostly _this_ world
-[^2]: or in some extremely rare, and strategically important, cases we build it
-[^3]: cron-job builders are notoriously hard to make user-friendly
-[^4]: or deploys it on their local system
-[^5]: the data dumps, the complex configurations, the bulk updates...
+[^1]: or in some extremely rare, and strategically important, cases we build it
+[^2]: cron-job builders are notoriously hard to make user-friendly
+[^3]: or deploys it on their local system
+[^4]: the data dumps, the complex configurations, the bulk updates...

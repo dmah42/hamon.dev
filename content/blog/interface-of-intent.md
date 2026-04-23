@@ -1,5 +1,5 @@
 +++
-title = "Exploring a different kind of interface"
+title = "interface of intent"
 author = "dominic"
 date = "2026-03-12"
 categories = [

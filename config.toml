@@ -33,6 +33,8 @@ pygmentscodefencesguesssyntax = true
   customSCSS = []
   customJS = []
 
+  math = true
+
 [taxonomies]
   category = "categories"
   series = "series"
@@ -112,3 +114,12 @@ lineNos = true
 lineNumbersInTable = true
 guessSyntax = true
 style = "dracula"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)']]

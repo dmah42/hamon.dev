@@ -115,3 +115,102 @@ Hubble parameter becomes negative, we give the optimizer a directional compass
 enters the expanding regime, this penalty drops strictly to zero, leaving the
 network to be governed *exclusively* by the raw Einstein Field Equations and the
 data.
+
+## Appendix: A correction!
+
+It turns out we didn't discover contraction after all, I just made a mistake in
+my analysis. This is such a subtle issue so I want to explain it in depth:
+
+Here was the original, buggy line in my notebook:
+
+```python
+dg_dt = jacfwd(model)(coords)[:, 0]
+```
+
+And here is the fix:
+
+```python
+dg_dt = jacfwd(model)(coords)[:, :, 0]
+```
+
+The neural network takes a 1D array of 4 coordinates `[t, x, y, z]` as input,
+and outputs a 2D $4 \times 4$ matrix representing the metric tensor
+$g_{\mu\nu}$. 
+
+When we call `jacfwd(model)(coords)`, JAX computes the derivative of every
+output with respect to every input. This creates a 3D tensor with shape
+`(4, 4, 4)`. In physics terms, this tensor is
+$\frac{\partial g_{\mu\nu}}{\partial x^\alpha}$, and its axes are ordered as
+`[output_row, output_col, input_coord]`.
+
+Because I wanted the **time derivative** ($\frac{\partial}{\partial t}$), I
+needed the derivative with respect to the 0th input coordinate (`t`). That means
+I needed the 0th index of the **third** axis. The correct syntax to grab that is
+`[:, :, 0]`.
+
+### What `[:, 0]` Actually Did
+
+In Python, if we have a 3D array and only give it two slicing arguments like
+`[:, 0]`, it implicitly assumes you want everything from the remaining axes.
+So `[:, 0]` is identical to `[:, 0, :]`.
+
+This means it grabbed all rows from the first axis, index 0 from the second
+axis, and all indices from the third axis. In physics terms, I accidentally
+extracted $\frac{\partial g_{\mu, 0}}{\partial x^\alpha}$.
+
+Then, on the very next line, I sliced out the spatial components `[1:4, 1:4]`
+isolating $\mu \in \{1,2,3\}$ and $\alpha \in \{1,2,3\}$.
+
+So instead of plotting the **time derivative of the spatial metric**
+($\frac{\partial g_{ij}}{\partial t}$, which dictates cosmological expansion),
+my notebook was actually calculating the **spatial derivatives of the shift
+vector** ($\frac{\partial g_{i0}}{\partial x^j}$)!
+
+Because the network is initialized near a flat Minkowski space with tiny amounts
+of random noise, the shift vector $g_{i0}$ was just random neural network noise.
+The spatial gradients of that noise just happened to hover in the negative
+range. 
+
+Because you were plotting that noise and calling it $H(t)$, it created the
+illusion of a contracting universe.
+
+### Corrected Results
+
+![Corrected Hubble and Shear Plots](corrected_hubble_and_shear_plot.png)
+
+This reveals a very interesting result: **late-time anisotropic expansion** as a
+physical mechanism to mimic Dark Energy. In the early universe ($t=-4$), the
+directional expansion rates ($H_x, H_y, H_z$) are tightly clustered and the
+shear scalar is nearly zero, meaning the cosmos begins highly isotropic and
+consistent with the uniformity of the Cosmic Microwave Background. However, as
+the universe evolves toward the present day ($t=0$), it violently breaks
+symmetry. The $x$-axis undergoes a massive "super-expansion," growing to expand
+five times faster than the $z$-axis, which drives the spatial shear to a massive
+late-time peak.
+
+Note the peak is at $t=0$ and the trends reverse after this. For $t < 0$ (the
+past), the network is balancing the Physics Loss (which demands deceleration)
+and the Supernova Data Loss (which demands acceleration). To fit the data, it is
+forced to stretch the metric and drive the expansion and shear upward.
+
+But at $t > 0$ (the future), there are no supernovae to observe. The Data Loss
+vanishes, and the pure vacuum Einstein Field Equations take 100% control. The
+moment the data constraint is lifted, the Raychaudhuri equation
+($\dot{H} = -H^2 - \frac{1}{3}\sigma^2$) reasserts itself. Because gravity and
+shear strictly cause deceleration in a vacuum, the EFE instantly forces the
+expansion rates to drop back down to a mathematically valid, decelerating
+trajectory.
+
+Physically, the network is weaponizing this shear to fit the Supernova distances
+without a Cosmological Constant ($\Lambda$). Because a vacuum universe cannot
+isotropically accelerate under General Relativity, the model created a preferred
+"Dark Energy Axis." Light traveling from supernovae along this highly stretched
+$x$-axis will experience an elongated luminosity distance, perfectly simulating
+the observational signatures of accelerated expansion.
+
+This is a profound result: the unconstrained AI independently derived the
+"[Cosmological
+Dipole](https://theconversation.com/the-universe-may-be-lopsided-new-research-265256)"
+hypothesis, mathematically proving that the illusion of Dark Energy can be
+created if the universe is expanding at vastly different rates depending on
+which direction we look in the sky.

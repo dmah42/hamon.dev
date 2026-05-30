@@ -14,6 +14,15 @@ a library to run microbenchmarks on C++ code, similar to unit tests.
 
 _#benchmark #c++_
 
+### [lumpyspace](https://github.com/dmah42/lumpyspace)
+
+a high-performance Physics-Informed Neural Network (PINN) framework designed to
+solve for 4D inhomogeneous spacetime metrics.
+
+_#machinelearning #relativity #cosmology_
+
+## inactive projects
+
 ### [swarm](https://github.com/dmah42/swarm)
 
 swarm is a project that offers a dead simple way to run jobs on a cluster.  run
@@ -29,8 +38,6 @@ an attempt to bring RFC4898 to the linux kernel using eBPF, rather than direct
 integration.
 
 _#go #c #ebpf_
-
-## inactive projects
 
 ### [mrdo](https://github.com/dmah42/mrdo)
 

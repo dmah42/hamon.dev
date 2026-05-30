@@ -5,7 +5,7 @@ draft: false
 tags: ["machine learning", "neural networks", "physics", "cosmology", "general relativity"]
 ---
 
-## Weighing the Universe: Matter, Constraints, and Spatial Inhomogeneity
+## Matter, Constraints, and Spatial Inhomogeneity
 
 In my [previous post](https://hamon.dev/blog/lumpyspace/), I explored how a
 Physics-Informed Neural Network (PINN) could learn the 4D metric tensor of the

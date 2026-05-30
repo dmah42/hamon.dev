@@ -1,5 +1,5 @@
 ---
-title: "lumpyspace part 2: weighting the universe"
+title: "lumpyspace part 2: weighing the universe"
 date: 2026-05-29
 draft: false
 tags: ["machine learning", "neural networks", "physics", "cosmology", "general relativity"]

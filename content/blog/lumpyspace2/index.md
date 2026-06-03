@@ -247,6 +247,8 @@ strikes a mathematical compromise. There is a slight residual negative
 curvature and non-zero early shear in the final plots as the network
 balances physical laws against the raw data loss. More on this next...
 
+[Next post](/blog/lumpyspace3) in the series.
+
 [^0]: and, more importantly, doesn't give us anywhere to leave our stuff!
 
 [^1]: and gives us somewhere to live.

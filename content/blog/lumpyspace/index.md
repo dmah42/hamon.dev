@@ -214,3 +214,5 @@ Dipole](https://theconversation.com/the-universe-may-be-lopsided-new-research-26
 hypothesis, mathematically proving that the illusion of Dark Energy can be
 created if the universe is expanding at vastly different rates depending on
 which direction we look in the sky.
+
+[Next post](/blog/lumpyspace2) in the series.

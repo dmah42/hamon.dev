@@ -91,7 +91,7 @@ $\sum \left( \frac{\mathcal{L}_i}{2 \sigma_i^2} + \log \sigma_i \right)$.
 
 While elegant, I discovered that it creates a **"Lazy Optimizer" problem**. The
 Einstein Field Equations are a highly rigid, non-linear system, so finding a
-metric that satisfies them is difficult[^0]. Faced with a high physics loss
+metric that satisfies them is difficult[^1]. Faced with a high physics loss
 early in training, the optimizer found it mathematically cheaper to just drive
 $\sigma \to \infty$ to artificially zero out the effective loss, rather than
 actually solving the differential equations! This completely stalled the
@@ -237,4 +237,4 @@ simulate complex recombination plasma dynamics.
 
 Stay tuned!
 
-[^0] understatement, again
+[^1]: understatement, again

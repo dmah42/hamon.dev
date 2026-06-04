@@ -109,7 +109,7 @@ Because our metric has discovered an inhomogeneous spatial curvature dipole, the
 differential equations are significantly harder to satisfy in some regions of
 space-time than others. Specifically, the gradients in the high-redshift past
 ($t \approx -3.0$) are massive compared to the local universe where the
-supernova data sits ($t > -1.5$). The model was struggling to converge on the
+supernova data sits ($t > -2.5$). The model was struggling to converge on the
 Weak Energy Condition because the gradients were dominated by these boundary
 regions.
 
@@ -203,10 +203,10 @@ slightly negative in the past ($t = -4.0$). In the right panel, the shear scalar
 -4.0$.
 
 As the matter density is so low ($\Omega\_m = 0.05$), the universe in the past
-($t \in [-4.0, -1.5]$) behaves like a vacuum. Without a heavy background of
+($t \in [-4.0, -2.5]$) behaves like a vacuum. Without a heavy background of
 matter to drive cosmic expansion and deceleration, and because we have no
 observational supernova data in the far past (Supernovae only go up to
-$z \approx 2.3$, or $t \approx -1.5$), the neural network's extrapolation is
+$z \approx 2.3$, or $t \approx -2.5$), the neural network's extrapolation is
 free to drift. Under pure vacuum field equations, it drifts into a
 static/contracting past with positive shear.
 

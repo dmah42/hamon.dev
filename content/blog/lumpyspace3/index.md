@@ -237,4 +237,6 @@ simulate complex recombination plasma dynamics.
 
 Stay tuned!
 
+[Next post](/blog/lumpyspace4) in the series.
+
 [^1]: understatement, again
